@@ -1,10 +1,3 @@
-//
-//  FinancesApp.swift
-//  Finances
-//
-//  Created by Ihar on 27.12.2025.
-//
-
 import SwiftUI
 import SwiftData
 
@@ -12,9 +5,15 @@ import SwiftData
 struct FinancesApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            Category.self,
+            Subcategory.self,
+            Account.self
         ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        var isStoredInMemoryOnly = false
+        #if DEBUG
+        isStoredInMemoryOnly = true
+        #endif
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: isStoredInMemoryOnly)
 
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
