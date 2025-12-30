@@ -4,7 +4,7 @@ import SwiftData
 struct ChooseParentCategorySheet: View {
     @Binding var toShow: Bool
     @Binding var parentCategory: Category?
-    @Binding var categoryType: CategoryType
+    var categoryType: CategoryType
     
     @State private var didError = false
     @Query private var categories: [Category]
@@ -17,10 +17,10 @@ struct ChooseParentCategorySheet: View {
                 Spacer()
                 VStack(spacing: 4) {
                     Text("Новая категория")
-                    Text("Расход")
+                    Text(categoryType.string)
                 }
                 Spacer()
-                Button("", systemImage: "checkmark", action: {
+                Button("", systemImage: "plus", action: {
                     
                 })
                 .alert("Не удалось создать", isPresented: $didError) {

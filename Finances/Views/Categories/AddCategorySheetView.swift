@@ -3,7 +3,7 @@ import SwiftData
 
 struct AddCategorySheetView: View {
     @Binding var toShow: Bool
-    @Binding var categoryType: CategoryType
+    var categoryType: CategoryType
     
     @State private var showChooseParent = false
     @State private var parentCategory: Category? = nil
@@ -69,7 +69,7 @@ struct AddCategorySheetView: View {
         .sheet(isPresented: $showChooseParent) {
             
         } content: {
-            ChooseParentCategorySheet(toShow: $showChooseParent, parentCategory: $parentCategory, categoryType: $categoryType)
+            ChooseParentCategorySheet(toShow: $showChooseParent, parentCategory: $parentCategory, categoryType: categoryType)
         }
     }
     

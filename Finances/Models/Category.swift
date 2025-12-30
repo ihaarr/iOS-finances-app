@@ -16,16 +16,13 @@ enum CategoryType: Codable {
 @Model
 final class Category {
     @Attribute(.unique)
-    var id: UUID
-    @Attribute(.unique)
     var name: String = ""
     var type: CategoryType
     
     @Relationship(deleteRule: .cascade, inverse: \Subcategory.category)
     var subcategories: [Subcategory]
     
-    init(name: String, type: CategoryType, subcategories: [Subcategory] = [], id: UUID = UUID()) {
-        self.id = id
+    init(name: String, type: CategoryType, subcategories: [Subcategory] = []) {
         self.name = name
         self.type = type
         self.subcategories = subcategories
