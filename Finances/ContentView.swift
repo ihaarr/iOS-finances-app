@@ -7,6 +7,7 @@ struct ContentView: View {
     @Query private var categories: [Category]
     @Query private var accounts: [Account]
     @Query private var operations: [Operation]
+    @Query private var transfers: [Transfer]
     
     var body: some View {
         VStack {
@@ -16,7 +17,7 @@ struct ContentView: View {
                         .tabItem {
                             Label("Счета", systemImage: "")
                         }
-                    OperationsTabView(categories: categories, accounts: accounts, operations: operations)
+                    OperationsTabView(categories: categories, accounts: accounts, operations: operations, transfers: transfers)
                         .tabItem {
                             Label("Операции", systemImage: "")
                         }

@@ -3,38 +3,27 @@ import SwiftUI
 struct AccountsTabView: View {
     let accounts: [Account]
     
-    @State private var isExpanded = false
+    @State private var showCreateSheet = false
     
     var body: some View {
         VStack {
-            Button(action: {
-                withAnimation {
-                    isExpanded = !isExpanded
+            HStack {
+                Spacer()
+                Text("Счета")
+                Button("", systemImage: "plus") {
+                    showCreateSheet = true
                 }
-            }) {
-                HStack(spacing: 8) {
-                    Text("Карты и счета")
-                        .foregroundColor(.white)
-                        .font(.body)
-
-                    Image(
-                        systemName: !isExpanded
-                            ? "chevron.down" : "chevron.right"
-                    )
-                    .foregroundColor(.white)
-                    .font(.caption)
-
-                    Spacer()
+                .sheet(isPresented: $showCreateSheet) {}
+                content: {
+                    CreateAccountView(accounts: accounts, showSelf: $showCreateSheet)
                 }
-                .padding(.vertical, 12)
-                .contentShape(Rectangle())  // Для увеличения области нажатия
             }
-            .buttonStyle(PlainButtonStyle())  // Убирает стандартные стили кнопки
-            .background(Color.black)  // Фон элемента
-            .clipShape(RoundedRectangle(cornerRadius: 0))  // Без скруглений, как в
-            if isExpanded {
-                ListAccountsView(accounts: accounts)
-            }
+            .padding([.vertical, .horizontal])
+            ListCardsView(accounts: accounts)
+            ListSavingsView(accounts: accounts)
+            ListCreditsView(accounts: accounts)
+            Spacer()
         }
+        .padding([.vertical, .horizontal])
     }
 }

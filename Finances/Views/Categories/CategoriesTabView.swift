@@ -6,7 +6,6 @@ struct CategoriesTabView: View {
     @State var categoryType: CategoryType = CategoryType.expenses
     @State private var find = ""
     @State private var __C: Subcategory?
-    @State private var __S: Bool = false
     var body: some View {
         VStack {
             CategoryHeaderView(categoryType: $categoryType, find: $find)
@@ -20,7 +19,7 @@ struct CategoriesTabView: View {
                 }
                 .underline(categoryType == CategoryType.income, color: Color.black)
             }
-            ListCategoriesView(categoryType: categoryType, categories: categories, toShow: $__S, chooseSubcategory: $__C)
+            ListCategoriesView(categoryType: categoryType, categories: categories, chooseSubcategory: $__C)
         }
     }
 }

@@ -9,6 +9,7 @@ struct FinancesApp: App {
             Subcategory.self,
             Account.self,
             Operation.self,
+            Transfer.self,
         ])
         var isStoredInMemoryOnly = false
         #if DEBUG
@@ -30,10 +31,12 @@ struct FinancesApp: App {
             container.mainContext.insert(expenseCategory)
             container.mainContext.insert(expenseSubcategory)
             
-            let account = Account(name: "Наличные", balance: 1000)
-            let account2 = Account(name: "Карта", balance: 2000)
+            let account = Account(name: "Наличные", balance: 1000, type: AccountType.card, currency: Currency.rub, byDefault: false)
+            let account2 = Account(name: "Карта", balance: 2000, type: AccountType.card, currency: Currency.rub, byDefault: true)
+            let account3 = Account(name: "Депозит", balance: 50000, type: AccountType.savings, currency: Currency.rub, byDefault: false)
             container.mainContext.insert(account)
             container.mainContext.insert(account2)
+            container.mainContext.insert(account3)
             try container.mainContext.save()
             #endif
             return container

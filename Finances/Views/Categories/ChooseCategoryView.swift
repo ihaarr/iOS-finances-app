@@ -3,24 +3,24 @@ import SwiftUI
 struct ChooseCategoryView: View {
     let categories: [Category]
     let categoryType: CategoryType
-    @Binding var toShow: Bool
     @Binding var chooseCategory: Subcategory?
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         VStack {
             HStack {
                 Button("", systemImage: "xmark") {
-                    toShow = false
+                    presentationMode.wrappedValue.dismiss()
                 }
                 Spacer()
                 Text("Категории")
                 Spacer()
                 Button("", systemImage: "plus") {
-                    toShow = false
+                    presentationMode.wrappedValue.dismiss()
                 }
             }
             .padding([.horizontal, .vertical])
-            ListCategoriesView(categoryType: categoryType, categories: categories, toShow: $toShow, chooseSubcategory: $chooseCategory)
+            ListCategoriesView(categoryType: categoryType, categories: categories, chooseSubcategory: $chooseCategory)
         }
     }
 }

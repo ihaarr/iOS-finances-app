@@ -3,8 +3,8 @@ import SwiftUI
 struct CategoryRow: View {
     var category: Category
     @State private var expanded = false
-    @Binding var toShow: Bool
     @Binding var chooseSubcategory: Subcategory?
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         VStack {
@@ -23,7 +23,7 @@ struct CategoryRow: View {
                     subcategory in
                     Button() {
                         chooseSubcategory = subcategory
-                        toShow = false
+                        presentationMode.wrappedValue.dismiss()
                     } label: {
                         Text(subcategory.name)
                     }
@@ -39,14 +39,13 @@ struct ListCategoriesView: View {
     var categoryType: CategoryType
     var categories: [Category]
     
-    @Binding var toShow: Bool
     @Binding var chooseSubcategory: Subcategory?
     
     var body: some View {
         List(categories) {
             category in
             if category.type == categoryType {
-                CategoryRow(category: category, toShow: $toShow, chooseSubcategory: $chooseSubcategory)
+                CategoryRow(category: category, chooseSubcategory: $chooseSubcategory)
             }
         }
         .padding(.horizontal)

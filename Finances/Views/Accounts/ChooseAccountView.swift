@@ -2,34 +2,34 @@ import SwiftUI
 
 struct ChooseAccountView: View {
     let accounts: [Account]
-    @Binding var toShow: Bool
     @Binding var account: Account?
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         VStack {
             HStack {
                 Button("", systemImage: "xmark") {
-                    toShow = false
+                    presentationMode.wrappedValue.dismiss()
                 }
                 Spacer()
                 Text("Счёт")
                 Spacer()
                 Button("", systemImage: "plus") {
-                    toShow = false
+                    presentationMode.wrappedValue.dismiss()
                 }
             }
             .padding([.horizontal, .vertical])
             
-            List(accounts) {
+            List(accounts.filter{ $0.type == AccountType.card}) {
                 acc in
                 Button() {
                     account = acc
-                    toShow = false
+                    presentationMode.wrappedValue.dismiss()
                 } label: {
                     HStack {
                         Text(acc.name)
                         Spacer()
-                        Text(" \(acc.balance) ₽")
+                        Text(" \(acc.balance) \(acc.currency.symbol)")
                     }
                 }
             }
